@@ -19,8 +19,6 @@ export function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   const login = useMutation({
-    // Backend field stays named `username` but now resolves against email too,
-    // so we just pass whatever the user typed.
     mutationFn: () => authApi.login({ username: usernameOrEmail, password }),
     onSuccess: (data) => {
       setAuth(data);
@@ -37,10 +35,6 @@ export function LoginPage() {
     <div className="w-full max-w-md mx-auto">
       {/* Wordmark */}
       <div className="mb-8 text-center">
-        <div className="inline-flex items-center gap-2 mb-2">
-          <Terminal className="w-5 h-5 text-accent" />
-          <h1 className="font-mono text-lg text-text tracking-tight">pr-dash</h1>
-        </div>
         <p className="font-mono text-xs text-subtle">
           <span className="text-accent">~</span> / login
         </p>

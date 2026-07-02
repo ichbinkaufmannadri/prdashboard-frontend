@@ -1,0 +1,143 @@
+/*
+ * Styling for react-diff-view.
+ *
+ * Warm/muted amber-rust palette that fits the app's dark warm-tinted theme:
+ *   - Added lines: subtle sage/olive tint (avoids clashing with the accent amber)
+ *   - Removed lines: rust/terracotta tint
+ *   - Context lines: transparent, subdued text
+ *   - Hunk headers: amber-tinted, for parity with the app accent
+ *
+ * All rules are scoped to .pr-diff-view so they don't leak into other
+ * components that might reuse class names like .diff-code.
+ */
+
+.pr-diff-view .diff {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.55;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* --------------------------- Gutter (line numbers) --------------------------- */
+
+.pr-diff-view .diff-gutter {
+  padding: 0 0.6rem;
+  width: 1%;
+  min-width: 3rem;
+  text-align: right;
+  color: rgba(255, 255, 255, 0.28);
+  -webkit-user-select: none;
+  user-select: none;
+  background-color: transparent;
+}
+
+.pr-diff-view .diff-gutter-omit {
+  cursor: default;
+  height: 0.35rem;
+}
+
+/* --------------------------- Code cells --------------------------- */
+
+.pr-diff-view .diff-code {
+  padding: 0 0.6rem 0 0.4rem;
+  white-space: pre;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Prefix character (+ / - / space). Rendered via CSS so we don't need
+   to transform the underlying line data. */
+.pr-diff-view .diff-code::before {
+  display: inline-block;
+  width: 1ch;
+  margin-right: 0.4rem;
+  opacity: 0.85;
+}
+
+.pr-diff-view .diff-code-insert::before {
+  content: '+';
+  color: #9fbd7a;
+}
+
+.pr-diff-view .diff-code-delete::before {
+  content: '-';
+  color: #d18a5f;
+}
+
+.pr-diff-view .diff-code-normal::before {
+  content: ' ';
+}
+
+/* --------------------------- Added lines (sage/olive) --------------------------- */
+
+.pr-diff-view .diff-code-insert {
+  background-color: rgba(159, 189, 122, 0.10);
+  color: #c5d7a8;
+}
+
+.pr-diff-view .diff-gutter-insert {
+  background-color: rgba(159, 189, 122, 0.18);
+  color: #9fbd7a;
+}
+
+/* --------------------------- Removed lines (rust) --------------------------- */
+
+.pr-diff-view .diff-code-delete {
+  background-color: rgba(209, 138, 95, 0.10);
+  color: #e0b89c;
+}
+
+.pr-diff-view .diff-gutter-delete {
+  background-color: rgba(209, 138, 95, 0.18);
+  color: #d18a5f;
+}
+
+/* --------------------------- Context / normal --------------------------- */
+
+.pr-diff-view .diff-code-normal {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.pr-diff-view .diff-gutter-normal {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* --------------------------- Hunk header (@@ -1,3 +1,4 @@) --------------------------- */
+
+.pr-diff-view .diff-hunk-header,
+.pr-diff-view .diff-decoration {
+  background-color: rgba(255, 180, 84, 0.06);
+}
+
+.pr-diff-view .diff-hunk-header-gutter {
+  background-color: rgba(255, 180, 84, 0.10);
+  color: rgba(255, 180, 84, 0.75);
+  padding: 0.2rem 0.6rem;
+  font-size: 11px;
+}
+
+.pr-diff-view .diff-hunk-header-content {
+  padding: 0.2rem 0.6rem;
+  color: rgba(255, 180, 84, 0.85);
+  font-size: 11.5px;
+}
+
+/* --------------------------- Split-view column divider --------------------------- */
+
+.pr-diff-view .diff-split .diff-code + .diff-gutter {
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Empty half-row in split mode (e.g., pure-add has no old-side content).
+   Keep it dimly tinted so the eye lands on the actual change. */
+.pr-diff-view .diff-split .diff-code-normal:empty,
+.pr-diff-view .diff-split .diff-gutter:empty {
+  background-color: rgba(255, 255, 255, 0.015);
+}
+
+/* --------------------------- Focus / hover --------------------------- */
+
+.pr-diff-view .diff-line:hover .diff-gutter {
+  color: rgba(255, 255, 255, 0.55);
+}
