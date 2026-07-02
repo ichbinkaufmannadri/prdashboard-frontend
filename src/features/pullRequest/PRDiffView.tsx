@@ -8,6 +8,7 @@ import { EmptyState } from '@/components/ui/EmptyState';
 import { pullRequestApi } from '@/api/dashboard';
 import { cn } from '@/lib/cn';
 import type { FileDiffDTO } from '@/types/domain';
+import './pr-diff-view.css';
 
 interface PRDiffViewProps {
   id: string;
@@ -111,7 +112,7 @@ function FileBlock({ file, viewType }: { file: FileDiffDTO; viewType: ViewType }
       </button>
 
       {expanded && files.length > 0 && (
-        <div className="overflow-x-auto">
+        <div className="pr-diff-view overflow-x-auto">
           {files.map((f, i) => (
             <Diff key={i} viewType={viewType} diffType={f.type} hunks={f.hunks}>
               {(hunks) => hunks.map((hunk) => <Hunk key={hunk.content} hunk={hunk} />)}
